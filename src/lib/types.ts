@@ -1,10 +1,9 @@
-import { LocalAudioTrack, LocalVideoTrack } from "livekit-client";
+import { LocalAudioTrack } from "livekit-client";
 
 export interface SessionProps {
   roomName: string;
   identity: string;
   audioTrack?: LocalAudioTrack;
-  videoTrack?: LocalVideoTrack;
   region?: string;
   turnServer?: RTCIceServer;
   forceRelay?: boolean;

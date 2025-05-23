@@ -14,40 +14,40 @@ export type ChatMessageType = {
 
 type ChatTileProps = {
   messages: ChatMessageType[];
-  accentColor: string;
   onSend?: (message: string) => Promise<ComponentsChatMessage>;
 };
 
-export const ChatTile = ({ messages, accentColor, onSend }: ChatTileProps) => {
+export const ChatTile = ({ messages, onSend }: ChatTileProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
+
+  // Always scroll to bottom when messages change
   useEffect(() => {
-    if (containerRef.current) {
-      containerRef.current.scrollTop = containerRef.current.scrollHeight;
+    const container = containerRef.current;
+    if (container) {
+      container.scrollTop = container.scrollHeight;
     }
-  }, [containerRef, messages]);
+  }, [messages]);
 
   return (
     <div className="flex flex-col gap-4 w-full h-full">
       <div
         ref={containerRef}
         className="overflow-y-auto"
-        style={{
-          height: `calc(100% - ${inputHeight}px)`,
-        }}
+        style={{ height: `calc(100% - ${inputHeight}px)` }}
       >
         <div className="flex flex-col min-h-full justify-end">
           {messages.map((message, index, allMsg) => {
+            // Hide name if previous message is from the same user
             const hideName =
-              index >= 1 && allMsg[index - 1].name === message.name;
+              index > 0 && allMsg[index - 1].name === message.name;
 
             return (
               <ChatMessage
-                key={index}
+                key={`${message.name}-${message.timestamp}-${index}`}
                 hideName={hideName}
                 name={message.name}
                 message={message.message}
                 isSelf={message.isSelf}
-                accentColor={accentColor}
               />
             );
           })}
@@ -56,7 +56,6 @@ export const ChatTile = ({ messages, accentColor, onSend }: ChatTileProps) => {
       <ChatMessageInput
         height={inputHeight}
         placeholder="Type a message"
-        accentColor={accentColor}
         onSend={onSend}
       />
     </div>

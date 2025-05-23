@@ -120,7 +120,6 @@ export function HomeInner() {
           </LiveKitRoom>
         ) : (
           <PlaygroundConnect
-            accentColor={themeColors[0]}
             onConnectClicked={(mode) => {
               handleConnect(true, mode);
             }}

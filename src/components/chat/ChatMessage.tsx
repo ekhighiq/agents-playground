@@ -1,6 +1,5 @@
 type ChatMessageProps = {
   message: string;
-  accentColor: string;
   name: string;
   isSelf: boolean;
   hideName?: boolean;
@@ -9,27 +8,25 @@ type ChatMessageProps = {
 export const ChatMessage = ({
   name,
   message,
-  accentColor,
   isSelf,
   hideName,
 }: ChatMessageProps) => {
+  const nameColorClass = isSelf
+    ? "text-gray-700"
+    : "text-green-800 text-ts-green uppercase text-xs";
+  const messageColorClass = isSelf
+    ? "text-gray-300"
+    : "text-green-500 drop-shadow-green";
+  
   return (
     <div className={`flex flex-col gap-1 ${hideName ? "pt-0" : "pt-6"}`}>
       {!hideName && (
-        <div
-          className={`text-${
-            isSelf ? "gray-700" : accentColor + "-800 text-ts-" + accentColor
-          } uppercase text-xs`}
-        >
+        <div className={nameColorClass}>
           {name}
         </div>
       )}
       <div
-        className={`pr-4 text-${
-          isSelf ? "gray-300" : accentColor + "-500"
-        } text-sm ${
-          isSelf ? "" : "drop-shadow-" + accentColor
-        } whitespace-pre-line`}
+        className={`pr-4 ${messageColorClass} text-sm whitespace-pre-line`}
       >
         {message}
       </div>

@@ -14,8 +14,6 @@ import React, {
 export type AppConfig = {
   title: string;
   description: string;
-  github_link?: string;
-  video_fit?: "cover" | "contain";
   settings: UserSettings;
   show_qr?: boolean;
 };
@@ -25,13 +23,11 @@ export type UserSettings = {
   theme_color: string;
   chat: boolean;
   inputs: {
-    camera: boolean;
     screen: boolean;
     mic: boolean;
   };
   outputs: {
     audio: boolean;
-    video: boolean;
   };
   ws_url: string;
   token: string;
@@ -43,19 +39,16 @@ export type UserSettings = {
 const defaultConfig: AppConfig = {
   title: "LiveKit Agents Playground",
   description: "A virtual workbench for testing multimodal AI agents.",
-  video_fit: "cover",
   settings: {
     editable: true,
     theme_color: "cyan",
     chat: true,
     inputs: {
-      camera: true,
       screen: true,
       mic: true,
     },
     outputs: {
-      audio: true,
-      video: true,
+      audio: true
     },
     ws_url: "",
     token: "",
@@ -118,13 +111,11 @@ export const ConfigProvider = ({ children }: { children: React.ReactNode }) => {
       chat: params.get("chat") === "1",
       theme_color: params.get("theme_color"),
       inputs: {
-        camera: params.get("cam") === "1",
         screen: params.get("screen") === "1",
         mic: params.get("mic") === "1",
       },
       outputs: {
         audio: params.get("audio") === "1",
-        video: params.get("video") === "1",
         chat: params.get("chat") === "1",
       },
       ws_url: "",
@@ -149,10 +140,8 @@ export const ConfigProvider = ({ children }: { children: React.ReactNode }) => {
   const setUrlSettings = useCallback(
     (us: UserSettings) => {
       const obj = new URLSearchParams({
-        cam: boolToString(us.inputs.camera),
         mic: boolToString(us.inputs.mic),
         screen: boolToString(us.inputs.screen),
-        video: boolToString(us.outputs.video),
         audio: boolToString(us.outputs.audio),
         chat: boolToString(us.chat),
         theme_color: us.theme_color || "cyan",

@@ -1,4 +1,4 @@
-export const CloudConnect = ({ accentColor }: { accentColor: string }) => {
+export const CloudConnect = () => {
   return null;
 };
 

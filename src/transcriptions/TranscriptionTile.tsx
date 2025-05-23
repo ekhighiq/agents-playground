@@ -15,10 +15,8 @@ import { useEffect, useState } from "react";
 
 export function TranscriptionTile({
   agentAudioTrack,
-  accentColor,
 }: {
   agentAudioTrack?: TrackReferenceOrPlaceholder;
-  accentColor: string;
 }) {
   const agentMessages = useTrackTranscription(agentAudioTrack || undefined);
   const localParticipant = useLocalParticipant();
@@ -97,7 +95,7 @@ export function TranscriptionTile({
   ]);
 
   return (
-    <ChatTile messages={messages} accentColor={accentColor} onSend={sendChat} />
+    <ChatTile messages={messages} onSend={sendChat} />
   );
 }
 

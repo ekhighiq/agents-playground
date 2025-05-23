@@ -5,7 +5,6 @@ import { useState } from "react";
 import { ConnectionMode } from "@/hooks/useConnection";
 
 type PlaygroundConnectProps = {
-  accentColor: string;
   onConnectClicked: (mode: ConnectionMode) => void;
 };
 
@@ -26,7 +25,6 @@ const ConnectTab = ({ active, onClick, children }: any) => {
 };
 
 const TokenConnect = ({
-  accentColor,
   onConnectClicked,
 }: PlaygroundConnectProps) => {
   const { setUserSettings, config } = useConfig();
@@ -51,7 +49,6 @@ const TokenConnect = ({
           ></textarea>
         </div>
         <Button
-          accentColor={accentColor}
           className="w-full"
           onClick={() => {
             const newSettings = { ...config.settings };
@@ -65,7 +62,7 @@ const TokenConnect = ({
         </Button>
         <a
           href="https://kitt.livekit.io/"
-          className={`text-xs text-${accentColor}-500 hover:underline`}
+          className={`text-xs text-green-500 hover:underline`}
         >
           Don’t have a URL or token? Try out our KITT example to see agents in
           action!
@@ -76,7 +73,6 @@ const TokenConnect = ({
 };
 
 export const PlaygroundConnect = ({
-  accentColor,
   onConnectClicked,
 }: PlaygroundConnectProps) => {
   const [showCloud, setShowCloud] = useState(true);
@@ -115,10 +111,9 @@ export const PlaygroundConnect = ({
           </div>
           <div className="flex flex-col bg-gray-900/30 flex-grow">
             {showCloud && CLOUD_ENABLED ? (
-              <CloudConnect accentColor={accentColor} />
+              <CloudConnect />
             ) : (
-              <TokenConnect
-                accentColor={accentColor}
+              <TokenConnect                
                 onConnectClicked={onConnectClicked}
               />
             )}
